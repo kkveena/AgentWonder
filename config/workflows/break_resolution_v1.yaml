@@ -1,0 +1,44 @@
+id: break_resolution_v1
+name: Break Resolution Workflow
+version: 1.0.0
+owner_team: markets_ops_ai
+template: sequential_with_approval
+description: >
+  Resolves an operations break by gathering context, proposing action,
+  pausing for checker approval, and then posting the final update.
+models:
+  default: gemini-2.5-flash
+  evaluator: gemini-2.5-pro
+tool_refs:
+  - fetch_break_details
+  - fetch_trade_context
+  - suggest_resolution
+  - post_resolution_update
+inputs:
+  required:
+    - break_id
+    - source_system
+steps:
+  - id: enrich_break
+    type: tool_call
+    tool_ref: fetch_break_details
+  - id: enrich_trade_context
+    type: tool_call
+    tool_ref: fetch_trade_context
+  - id: propose_resolution
+    type: llm_agent
+    instruction_ref: propose_resolution_prompt
+    uses_tools:
+      - suggest_resolution
+  - id: checker_approval
+    type: approval
+    approval_policy: checker_signoff
+  - id: update_downstream
+    type: tool_call
+    tool_ref: post_resolution_update
+    requires_approval_from: checker_approval
+output:
+  format: json
+  schema_ref: break_resolution_output
+evals:
+  suite: break_resolution_smoke
