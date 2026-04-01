@@ -1,0 +1,21 @@
+id: fetch_break_details
+name: Fetch Break Details
+version: 1.0.0
+owner_team: markets_ops_services
+type: rest
+method: POST
+endpoint: https://internal-api.example.com/breaks/details
+auth:
+  type: bearer_env
+  token_env_var: BREAK_API_TOKEN
+timeout_seconds: 15
+retry_policy:
+  max_retries: 2
+  backoff_seconds: 1
+idempotent: true
+approval_required: false
+side_effect_level: read
+allowed_environments:
+  - dev
+  - test
+  - prod
