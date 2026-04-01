@@ -130,14 +130,14 @@ Capture:
 Use this structure. Keep it close to `matching_engine` simplicity.
 
 ```text
-agentic_platform_v1/
+AgentWonder/
 ├── config/
 │   ├── templates/
 │   ├── workflows/
 │   ├── tools/
 │   ├── policies/
 │   └── prompts/
-├── agentic_platform/
+├── agentwonder/
 │   ├── schemas/
 │   │   ├── common.py
 │   │   ├── workflow.py

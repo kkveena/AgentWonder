@@ -1,6 +1,4 @@
-# README_v1.md
-
-# Agentic Workflow Platform V1
+# AgentWonder v1
 
 A YAML-first internal platform for building, validating, and running **governed agentic workflows** using **Google ADK** as the runtime and **Pydantic v2** as the schema contract layer.
 
@@ -15,12 +13,6 @@ Teams want agentic workflows, but v1 must optimize for:
 - safe tool invocation
 - approvals for side effects
 - traceability and evaluation
-
-This repository follows a simple layout style similar to the user's `matching_engine` repo:
-- `config/` contains YAML
-- one clean Python package contains runtime code
-- `tests/` holds unit and integration tests
-- no proprietary package names
 
 ---
 
@@ -49,7 +41,7 @@ This repository follows a simple layout style similar to the user's `matching_en
 
 ```text
 +--------------------------------------------------------------+
-|                  AGENTIC WORKFLOW PLATFORM V1                |
+|                      AGENTWONDER V1                          |
 +--------------------------------------------------------------+
 | YAML in config/  ->  Pydantic models  ->  ADK runtime plan   |
 +--------------------------------------------------------------+
@@ -69,23 +61,58 @@ The user experience in v1 is:
 ## 4. Repository layout
 
 ```text
-agentic_platform_v1/
+AgentWonder/
 ├── config/
 │   ├── templates/
 │   ├── workflows/
 │   ├── tools/
 │   ├── policies/
 │   └── prompts/
-├── agentic_platform/
+├── agentwonder/
 │   ├── schemas/
+│   │   ├── common.py
+│   │   ├── workflow.py
+│   │   ├── template.py
+│   │   ├── tool.py
+│   │   ├── policy.py
+│   │   ├── prompt.py
+│   │   └── run.py
 │   ├── compiler/
+│   │   ├── loader.py
+│   │   ├── validators.py
+│   │   ├── resolver.py
+│   │   └── builder.py
 │   ├── runtime/
+│   │   ├── executor.py
+│   │   ├── session_store.py
+│   │   ├── state_store.py
+│   │   ├── approvals.py
+│   │   └── model_router.py
 │   ├── registry/
+│   │   ├── templates.py
+│   │   ├── tools.py
+│   │   ├── prompts.py
+│   │   └── policies.py
 │   ├── tools/
+│   │   ├── rest_wrapper.py
+│   │   ├── openapi_wrapper.py
+│   │   └── auth.py
 │   ├── observability/
+│   │   ├── tracing.py
+│   │   ├── events.py
+│   │   └── evals.py
 │   ├── api/
+│   │   ├── routes_runs.py
+│   │   ├── routes_templates.py
+│   │   ├── routes_tools.py
+│   │   └── routes_health.py
 │   └── main.py
 ├── tests/
+│   ├── conftest.py
+│   ├── test_schemas.py
+│   ├── test_compiler.py
+│   ├── test_runtime.py
+│   └── test_templates.py
 ├── README_v1.md
 ├── architecture_layout.md
 ├── yaml_usage.md
@@ -93,18 +120,41 @@ agentic_platform_v1/
 └── requirements.txt
 ```
 
-This structure intentionally mirrors the simplicity of `matching_engine`, but avoids names like `nerds_nlp` and `EDGE`.
+---
+
+## 5. Quick start
+
+```bash
+# Install
+pip install -e ".[dev]"
+
+# Run tests
+pytest tests/ -v
+
+# Start API server
+uvicorn agentwonder.main:app --reload
+
+# API endpoints (under /api/v1)
+GET  /api/v1/health
+GET  /api/v1/templates
+GET  /api/v1/templates/{id}
+GET  /api/v1/tools
+GET  /api/v1/tools/{id}
+POST /api/v1/runs
+GET  /api/v1/runs/{id}
+GET  /api/v1/runs/{id}/trace
+```
 
 ---
 
-## 5. Core design choices
+## 6. Core design choices
 
 ### ADK as the runtime
 Google ADK is the execution runtime for workflow agents, multi-agent composition, tools, sessions, and future interoperability.
 
 ### Pydantic as the contract layer
 Every YAML file is parsed into a Pydantic model before use.
-The runtime should consume typed objects, not loose dictionaries.
+The runtime consumes typed objects, not loose dictionaries.
 
 ### YAML as the authoring layer
 V1 does not include a full UI. Instead:
@@ -124,145 +174,93 @@ Initial templates:
 
 ---
 
-## 6. High-level architecture
-
-```text
-+--------------------+     +----------------------+     +------------------+
-| config/workflows   | --> | Pydantic validation  | --> | Template checks  |
-+--------------------+     +----------+-----------+     +---------+--------+
-                                      |                           |
-                                      v                           v
-                            +-------------------+       +-------------------+
-                            | Canonical config  | ----> | ADK runtime plan  |
-                            +---------+---------+       +---------+---------+
-                                      |                           |
-                                      v                           v
-                             +------------------+       +-------------------+
-                             | Tool wrappers     |       | Run execution      |
-                             | approvals/policy  |       | traces/evals       |
-                             +------------------+       +-------------------+
-```
-
----
-
 ## 7. Major modules
 
-### `agentic_platform/schemas/`
-Pydantic models for all config and runtime contracts.
+### `agentwonder/schemas/`
+Pydantic models for all config and runtime contracts:
+`common.py`, `workflow.py`, `template.py`, `tool.py`, `policy.py`, `prompt.py`, `run.py`
 
-Suggested files:
-- `common.py`
-- `workflow.py`
-- `template.py`
-- `tool.py`
-- `policy.py`
-- `prompt.py`
-- `run.py`
-
-### `agentic_platform/compiler/`
+### `agentwonder/compiler/`
 Loads YAML, validates references, resolves registries, and builds the runtime plan.
 
-### `agentic_platform/runtime/`
+### `agentwonder/runtime/`
 Executes compiled workflows, manages sessions/state, and handles approvals.
 
-### `agentic_platform/registry/`
+### `agentwonder/registry/`
 Loads template, tool, prompt, and policy definitions from `config/`.
 
-### `agentic_platform/tools/`
+### `agentwonder/tools/`
 Contains reusable wrappers for REST/OpenAPI-backed tools.
 
-### `agentic_platform/observability/`
+### `agentwonder/observability/`
 Captures traces, events, metrics, and evaluation results.
 
-### `agentic_platform/api/`
-FastAPI routes for validation, runs, approvals, templates, and tools.
+### `agentwonder/api/`
+FastAPI routes for runs, templates, tools, and health.
 
 ---
 
-## 8. YAML-to-runtime contract
+## 8. YAML-to-runtime flow
 
 ```text
-+------------------+
-| YAML in config/  |
-+--------+---------+
-         |
-         v
-+------------------+
-| Pydantic models  |
-+--------+---------+
-         |
-         v
-+------------------+
-| Canonical config |
-+--------+---------+
-         |
-         v
-+------------------+
-| ADK objects      |
-+--------+---------+
-         |
-         v
-+------------------+
-| Runtime execution|
-+------------------+
+YAML in config/  →  Pydantic models  →  Canonical config  →  RuntimePlan  →  Execution
 ```
 
-Never execute raw YAML directly.
+Never execute raw YAML directly. Always validate through Pydantic first.
 
 ---
 
-## 9. Example usage flow
+## 9. Example: end-to-end workflow execution
 
-```text
-1. add tool YAML in config/tools/
-2. add policy YAML in config/policies/
-3. add prompt YAML in config/prompts/
-4. add workflow YAML in config/workflows/
-5. validate configs
-6. compile workflow
-7. run workflow
-8. inspect traces and approvals
+```python
+from pathlib import Path
+from agentwonder.compiler.loader import load_yaml
+from agentwonder.compiler.validators import validate_workflow, cross_validate_workflow
+from agentwonder.compiler.resolver import resolve_workflow
+from agentwonder.compiler.builder import build_plan
+from agentwonder.registry import TemplateRegistry, ToolRegistry, PromptRegistry, PolicyRegistry
+from agentwonder.runtime.executor import WorkflowExecutor
+from agentwonder.schemas.run import RunRequest
+
+# Load registries
+templates = TemplateRegistry()
+templates.load_from_directory(Path("config/templates"))
+tools = ToolRegistry()
+tools.load_from_directory(Path("config/tools"))
+prompts = PromptRegistry()
+prompts.load_from_directory(Path("config/prompts"))
+policies = PolicyRegistry()
+policies.load_from_directory(Path("config/policies"))
+
+# Build lookup dicts
+tools_dict = {t.id: t for t in tools.list_all()}
+templates_dict = {t.id: t for t in templates.list_all()}
+prompts_dict = {t.id: t for t in prompts.list_all()}
+policies_dict = {t.id: t for t in policies.list_all()}
+
+# Load, validate, resolve, build
+raw = load_yaml(Path("config/workflows/break_resolution_v1.yaml"))
+wf = validate_workflow(raw)
+errors = cross_validate_workflow(wf, tools_dict, templates_dict, policies_dict, prompts_dict)
+assert not errors
+
+resolved = resolve_workflow(wf, tools_dict, templates_dict, prompts_dict, policies_dict)
+plan = build_plan(resolved)
+
+# Execute
+import asyncio
+executor = WorkflowExecutor()
+request = RunRequest(workflow_id="break_resolution_v1", inputs={"break_id": "BRK-001", "source_system": "test"})
+status = asyncio.run(executor.execute(request, plan))
+print(status.state)  # RunState.COMPLETED
 ```
 
 ---
 
-## 10. Initial template set
-
-### single_agent_with_tools
-Best for one agent using approved tools.
-
-### router_specialists
-Best for routing work to specialist agents.
-
-### sequential_with_approval
-Best for stepwise workflows with human sign-off before side effects.
-
-### parallel_fanout_aggregate
-Best for parallel lookups and aggregation.
-
-### evaluator_loop
-Best for generation + critique/retry patterns.
-
----
-
-## 11. Build order
-
-1. implement Pydantic schemas
-2. implement YAML loaders and registries
-3. implement template validation
-4. implement runtime-plan compiler
-5. implement ADK executor
-6. implement approval handling
-7. implement tracing and eval hooks
-8. implement API routes
-9. add tests
-
----
-
-## 12. Design rules
+## 10. Design rules
 
 - no proprietary names in code or docs
 - keep package names clean and generic
-- keep the repo simple and readable
 - prefer explicit schema validation over dynamic behavior
 - keep v1 YAML-first; do not build a large UI yet
+- every workflow is versioned, every tool is registered, every run is traced

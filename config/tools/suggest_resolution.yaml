@@ -1,0 +1,21 @@
+id: suggest_resolution
+name: Suggest Resolution
+version: 1.0.0
+owner_team: markets_ops_ai
+type: rest
+method: POST
+endpoint: https://internal-api.example.com/resolutions/suggest
+auth:
+  type: bearer_env
+  token_env_var: RESOLUTION_API_TOKEN
+timeout_seconds: 30
+retry_policy:
+  max_retries: 1
+  backoff_seconds: 2
+idempotent: true
+approval_required: false
+side_effect_level: read
+allowed_environments:
+  - dev
+  - test
+  - prod

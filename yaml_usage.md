@@ -1,6 +1,6 @@
 # yaml_usage.md
 
-# YAML Usage Guide for Agentic Workflow Platform V1
+# YAML Usage Guide for AgentWonder V1
 
 This document explains how to use YAML files in v1.
 
@@ -122,26 +122,33 @@ inputs:
 steps:
   - id: enrich_break
     type: tool_call
-    tool_ref: fetch_break_details
+    tool: fetch_break_details
 
   - id: enrich_trade_context
     type: tool_call
-    tool_ref: fetch_trade_context
+    tool: fetch_trade_context
+    depends_on:
+      - enrich_break
 
   - id: propose_resolution
     type: llm_agent
     prompt_ref: propose_resolution_prompt
-    uses_tools:
+    tools:
       - suggest_resolution
+    depends_on:
+      - enrich_trade_context
 
   - id: checker_approval
     type: approval
-    approval_policy: checker_signoff
+    approval_ref: checker_signoff
+    depends_on:
+      - propose_resolution
 
   - id: update_downstream
     type: tool_call
-    tool_ref: post_resolution_update
-    requires_approval_from: checker_approval
+    tool: post_resolution_update
+    depends_on:
+      - checker_approval
 
 output:
   format: json
@@ -153,11 +160,11 @@ evals:
 
 ### Validation expectations
 - `template` must exist in `config/templates/`
-- every `tool_ref` must exist in `config/tools/`
+- every `tool` reference must exist in `config/tools/`
 - every `prompt_ref` must exist in `config/prompts/`
-- every `approval_policy` must exist in `config/policies/`
-- steps must be allowed by the selected template
-- write steps must have approval where policy requires it
+- every `approval_ref` must exist in `config/policies/`
+- step types must be allowed by the selected template
+- write/delete tools must have approval configured
 
 ---
 

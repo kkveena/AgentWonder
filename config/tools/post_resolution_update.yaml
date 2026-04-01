@@ -1,0 +1,21 @@
+id: post_resolution_update
+name: Post Resolution Update
+version: 1.0.0
+owner_team: markets_ops_services
+type: rest
+method: POST
+endpoint: https://internal-api.example.com/resolutions/update
+auth:
+  type: bearer_env
+  token_env_var: RESOLUTION_API_TOKEN
+timeout_seconds: 20
+retry_policy:
+  max_retries: 2
+  backoff_seconds: 1
+idempotent: false
+approval_required: true
+side_effect_level: write
+allowed_environments:
+  - dev
+  - test
+  - prod
