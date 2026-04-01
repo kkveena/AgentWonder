@@ -1,0 +1,9 @@
+id: checker_signoff
+name: Checker Signoff
+version: 1.0.0
+approval:
+  required: true
+  approver_roles:
+    - operations_checker
+  timeout_minutes: 30
+  on_reject: fail_run
