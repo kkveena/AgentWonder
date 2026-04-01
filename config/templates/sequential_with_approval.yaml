@@ -1,0 +1,9 @@
+id: sequential_with_approval
+version: 1.0.0
+allowed_step_types:
+  - tool_call
+  - llm_agent
+  - approval
+  - evaluator
+requires_explicit_order: true
+supports_parallel: false
