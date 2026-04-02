@@ -21,22 +21,29 @@ inputs:
 steps:
   - id: enrich_break
     type: tool_call
-    tool_ref: fetch_break_details
+    tool: fetch_break_details
   - id: enrich_trade_context
     type: tool_call
-    tool_ref: fetch_trade_context
+    tool: fetch_trade_context
+    depends_on:
+      - enrich_break
   - id: propose_resolution
     type: llm_agent
-    instruction_ref: propose_resolution_prompt
-    uses_tools:
+    prompt_ref: propose_resolution_prompt
+    tools:
       - suggest_resolution
+    depends_on:
+      - enrich_trade_context
   - id: checker_approval
     type: approval
-    approval_policy: checker_signoff
+    approval_ref: checker_signoff
+    depends_on:
+      - propose_resolution
   - id: update_downstream
     type: tool_call
-    tool_ref: post_resolution_update
-    requires_approval_from: checker_approval
+    tool: post_resolution_update
+    depends_on:
+      - checker_approval
 output:
   format: json
   schema_ref: break_resolution_output

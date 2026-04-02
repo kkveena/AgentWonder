@@ -1,22 +1,22 @@
 # architecture_layout.md
 
-# Architecture Layout for Agentic Workflow Platform V1
+# Architecture Layout for AgentWonder V1
 
-This document shows the v1 architecture using simple boxes and lines, aligned to a repository style similar to `matching_engine`, with `config/` as the YAML source and `agentic_platform/` as the main Python package.
+This document shows the v1 architecture using simple boxes and lines, with `config/` as the YAML source and `agentwonder/` as the main Python package.
 
 ---
 
 ## 1. Repository layout
 
 ```text
-agentic_platform_v1/
+AgentWonder/
 ├── config/
 │   ├── templates/
 │   ├── workflows/
 │   ├── tools/
 │   ├── policies/
 │   └── prompts/
-├── agentic_platform/
+├── agentwonder/
 │   ├── schemas/
 │   ├── compiler/
 │   ├── runtime/
@@ -44,7 +44,7 @@ agentic_platform_v1/
             |
             v
 +------------------------+
-| agentic_platform       |
+| agentwonder       |
 | compiler.loader        |
 +-----------+------------+
             |
@@ -101,7 +101,7 @@ agentic_platform_v1/
 
 ```text
 +---------------------------------------------------+
-| agentic_platform/schemas/                         |
+| agentwonder/schemas/                         |
 +---------------------------------------------------+
 | common.py    -> shared enums/base metadata        |
 | workflow.py  -> WorkflowConfig, StepConfig        |
@@ -117,7 +117,7 @@ agentic_platform_v1/
 
 ```text
 +---------------------------------------------------+
-| agentic_platform/compiler/                        |
+| agentwonder/compiler/                        |
 +---------------------------------------------------+
 | loader.py      -> load YAML from config/          |
 | validators.py  -> schema + cross-ref checks       |
@@ -130,7 +130,7 @@ agentic_platform_v1/
 
 ```text
 +---------------------------------------------------+
-| agentic_platform/runtime/                         |
+| agentwonder/runtime/                         |
 +---------------------------------------------------+
 | executor.py      -> execute workflow runs         |
 | session_store.py -> session persistence           |
@@ -144,7 +144,7 @@ agentic_platform_v1/
 
 ```text
 +---------------------------------------------------+
-| agentic_platform/registry/                        |
+| agentwonder/registry/                        |
 +---------------------------------------------------+
 | templates.py -> load approved templates           |
 | tools.py     -> load tool registry                |
@@ -157,7 +157,7 @@ agentic_platform_v1/
 
 ```text
 +---------------------------------------------------+
-| agentic_platform/tools/                           |
+| agentwonder/tools/                           |
 +---------------------------------------------------+
 | rest_wrapper.py    -> REST-backed tool adapter    |
 | openapi_wrapper.py -> OpenAPI-backed tool adapter |
@@ -169,7 +169,7 @@ agentic_platform_v1/
 
 ```text
 +---------------------------------------------------+
-| agentic_platform/observability/                   |
+| agentwonder/observability/                   |
 +---------------------------------------------------+
 | tracing.py -> run/step/tool traces                |
 | events.py  -> structured event emission           |
@@ -181,7 +181,7 @@ agentic_platform_v1/
 
 ```text
 +---------------------------------------------------+
-| agentic_platform/api/                             |
+| agentwonder/api/                             |
 +---------------------------------------------------+
 | routes_runs.py      -> create and inspect runs    |
 | routes_templates.py -> list templates             |

@@ -1,0 +1,21 @@
+id: fetch_trade_context
+name: Fetch Trade Context
+version: 1.0.0
+owner_team: markets_ops_services
+type: rest
+method: POST
+endpoint: https://internal-api.example.com/trades/context
+auth:
+  type: bearer_env
+  token_env_var: TRADE_API_TOKEN
+timeout_seconds: 15
+retry_policy:
+  max_retries: 2
+  backoff_seconds: 1
+idempotent: true
+approval_required: false
+side_effect_level: read
+allowed_environments:
+  - dev
+  - test
+  - prod
