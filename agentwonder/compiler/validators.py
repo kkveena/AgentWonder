@@ -2,7 +2,8 @@
 
 Single-model validation catches structural issues (missing fields, bad types).
 Cross-validation catches referential integrity issues (tool refs that don't
-exist, step types not allowed by the template, write tools without approvals).
+exist, step types not allowed by the template, write tools without approvals,
+environment compatibility, dependency cycles, and template constraints).
 """
 
 from __future__ import annotations
@@ -12,7 +13,7 @@ from typing import Any
 
 from pydantic import ValidationError
 
-from agentwonder.schemas.common import SideEffectLevel, StepType
+from agentwonder.schemas.common import SideEffectLevel, StepType, Environment
 from agentwonder.schemas.policy import PolicyConfig
 from agentwonder.schemas.prompt import PromptConfig
 from agentwonder.schemas.template import TemplateConfig
@@ -85,29 +86,21 @@ def cross_validate_workflow(
     templates: dict[str, TemplateConfig],
     policies: dict[str, PolicyConfig],
     prompts: dict[str, PromptConfig] | None = None,
+    target_environment: str | None = None,
 ) -> list[str]:
     """Check referential integrity of a validated workflow.
 
     Verifies:
     - The referenced template exists.
     - Every tool_ref in the workflow points to a registered tool.
-    - Every step's ``tool`` field (if set) points to a registered tool.
-    - Every step's ``prompt_ref`` (if set) points to a registered prompt.
-    - Every step's ``approval_ref`` (if set) points to a registered policy.
+    - Every step's tool/prompt/approval references exist.
     - Step types are allowed by the template.
     - Write/delete tools have an associated approval configuration.
-    - Step dependency references (``depends_on``) point to existing step IDs.
-    - The workflow does not exceed the template's ``max_steps`` limit.
-
-    Args:
-        workflow: A validated WorkflowConfig.
-        tools: Registry of available tools keyed by ID.
-        templates: Registry of available templates keyed by ID.
-        policies: Registry of available policies keyed by ID.
-        prompts: Registry of available prompts keyed by ID (optional).
-
-    Returns:
-        A list of error strings. An empty list means the workflow is valid.
+    - Step dependency references point to existing step IDs.
+    - The workflow does not exceed the template's max_steps limit.
+    - Dependency graph is acyclic.
+    - Template requires_approval is satisfied.
+    - Tools are allowed in the target environment.
     """
     prompts = prompts or {}
     errors: list[str] = []
@@ -137,6 +130,17 @@ def cross_validate_workflow(
                 f"exceeding template '{template.id}' max of {template.max_steps}"
             )
 
+        # Template requires_approval: workflow must contain an approval step
+        if template.requires_approval:
+            has_approval_step = any(
+                s.type == StepType.APPROVAL for s in workflow.steps
+            )
+            if not has_approval_step:
+                errors.append(
+                    f"Template '{template.id}' requires an approval step, "
+                    f"but workflow '{workflow.id}' has none"
+                )
+
     # -- Top-level tool_refs -------------------------------------------------
     for tool_ref in workflow.tool_refs:
         if tool_ref not in tools:
@@ -148,49 +152,28 @@ def cross_validate_workflow(
     step_ids = {s.id for s in workflow.steps}
 
     for step in workflow.steps:
-        # Tool reference on step
         if step.tool and step.tool not in tools:
-            errors.append(
-                f"Step '{step.id}' references unknown tool '{step.tool}'"
-            )
+            errors.append(f"Step '{step.id}' references unknown tool '{step.tool}'")
 
-        # Tools list on step (e.g. for llm_agent steps with multiple tools)
         for t in step.tools:
             if t not in tools:
-                errors.append(
-                    f"Step '{step.id}' references unknown tool '{t}'"
-                )
+                errors.append(f"Step '{step.id}' references unknown tool '{t}'")
 
-        # Prompt reference
         if step.prompt_ref and step.prompt_ref not in prompts:
-            errors.append(
-                f"Step '{step.id}' references unknown prompt '{step.prompt_ref}'"
-            )
+            errors.append(f"Step '{step.id}' references unknown prompt '{step.prompt_ref}'")
 
-        # Approval reference
         if step.approval_ref and step.approval_ref not in policies:
-            errors.append(
-                f"Step '{step.id}' references unknown policy '{step.approval_ref}'"
-            )
+            errors.append(f"Step '{step.id}' references unknown policy '{step.approval_ref}'")
 
-        # Depends-on references
         for dep in step.depends_on:
             if dep not in step_ids:
-                errors.append(
-                    f"Step '{step.id}' depends on unknown step '{dep}'"
-                )
+                errors.append(f"Step '{step.id}' depends on unknown step '{dep}'")
 
         # Write/delete tools must have approval configured
         if step.tool and step.tool in tools:
             tool_cfg = tools[step.tool]
-            if tool_cfg.side_effect_level in (
-                SideEffectLevel.WRITE,
-                SideEffectLevel.DELETE,
-            ):
-                has_approval = (
-                    step.approval_ref is not None
-                    or tool_cfg.approval_required
-                )
+            if tool_cfg.side_effect_level in (SideEffectLevel.WRITE, SideEffectLevel.DELETE):
+                has_approval = step.approval_ref is not None or tool_cfg.approval_required
                 if not has_approval:
                     errors.append(
                         f"Step '{step.id}' uses tool '{step.tool}' with side effect "
@@ -198,13 +181,66 @@ def cross_validate_workflow(
                         f"approval_ref and tool does not require approval"
                     )
 
+    # -- Dependency cycle detection ------------------------------------------
+    cycle_err = _detect_cycles(workflow)
+    if cycle_err:
+        errors.append(cycle_err)
+
+    # -- Environment compatibility -------------------------------------------
+    if target_environment:
+        try:
+            target_env = Environment(target_environment)
+        except ValueError:
+            errors.append(f"Unknown target environment: '{target_environment}'")
+            target_env = None
+
+        if target_env:
+            for tool_ref in workflow.tool_refs:
+                if tool_ref in tools:
+                    tool_cfg = tools[tool_ref]
+                    if target_env not in tool_cfg.allowed_environments:
+                        errors.append(
+                            f"Tool '{tool_ref}' is not allowed in environment "
+                            f"'{target_environment}' (allowed: "
+                            f"{[e.value for e in tool_cfg.allowed_environments]})"
+                        )
+
     if errors:
         logger.warning(
             "Cross-validation found %d issue(s) for workflow '%s'",
-            len(errors),
-            workflow.id,
+            len(errors), workflow.id,
         )
     else:
         logger.debug("Cross-validation passed for workflow '%s'", workflow.id)
 
     return errors
+
+
+def _detect_cycles(workflow: WorkflowConfig) -> str | None:
+    """Detect dependency cycles in workflow steps. Returns error or None."""
+    step_map = {s.id: s for s in workflow.steps}
+    visited: set[str] = set()
+    in_progress: set[str] = set()
+
+    def visit(step_id: str) -> str | None:
+        if step_id in visited:
+            return None
+        if step_id in in_progress:
+            return f"Dependency cycle detected involving step '{step_id}'"
+        in_progress.add(step_id)
+        step = step_map.get(step_id)
+        if step:
+            for dep in step.depends_on:
+                if dep in step_map:
+                    err = visit(dep)
+                    if err:
+                        return err
+        in_progress.discard(step_id)
+        visited.add(step_id)
+        return None
+
+    for s in workflow.steps:
+        err = visit(s.id)
+        if err:
+            return err
+    return None

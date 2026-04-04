@@ -26,6 +26,10 @@ from agentwonder.api.routes_health import router as health_router
 from agentwonder.api.routes_runs import router as runs_router
 from agentwonder.api.routes_templates import router as templates_router
 from agentwonder.api.routes_tools import router as tools_router
+from agentwonder.api.routes_workflows import router as workflows_router
+from agentwonder.api.routes_approvals import router as approvals_router
+from agentwonder.api.routes_prompts import router as prompts_router
+from agentwonder.api.routes_policies import router as policies_router
 from agentwonder.compiler.loader import load_all_yaml
 from agentwonder.compiler.validators import validate_workflow, ConfigValidationError
 from agentwonder.observability.tracing import TraceCollector
@@ -179,6 +183,10 @@ def create_app(config_dir: str = "config") -> FastAPI:
     application.include_router(runs_router, prefix=API_PREFIX)
     application.include_router(templates_router, prefix=API_PREFIX)
     application.include_router(tools_router, prefix=API_PREFIX)
+    application.include_router(workflows_router, prefix=API_PREFIX)
+    application.include_router(approvals_router, prefix=API_PREFIX)
+    application.include_router(prompts_router, prefix=API_PREFIX)
+    application.include_router(policies_router, prefix=API_PREFIX)
 
     return application
 

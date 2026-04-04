@@ -1,0 +1,10 @@
+id: content_publish_signoff
+name: Content Publish Signoff
+version: 1.0.0
+approval:
+  required: true
+  approver_roles:
+    - content_editor
+    - content_manager
+  timeout_minutes: 60
+  on_reject: fail_run

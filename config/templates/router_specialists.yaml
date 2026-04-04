@@ -1,0 +1,32 @@
+id: router_specialists
+version: 1.0.0
+description: >
+  A routing workflow where an initial router agent classifies the input and
+  dispatches it to one or more specialist agents. Specialists may run
+  independently. An aggregator step collects the final output.
+allowed_step_types:
+  - router
+  - llm_agent
+  - tool_call
+  - aggregator
+requires_explicit_order: false
+supports_parallel: true
+max_steps: 15
+max_parallel_branches: 10
+required_sections:
+  - steps
+  - tool_refs
+allowed_transitions:
+  - from: router
+    to: [llm_agent, tool_call]
+  - from: llm_agent
+    to: [tool_call, aggregator]
+  - from: tool_call
+    to: [llm_agent, aggregator]
+  - from: aggregator
+    to: []
+requires_approval: false
+supported_models:
+  - gemini-2.5-flash
+  - gemini-2.5-pro
+supports_loop: false

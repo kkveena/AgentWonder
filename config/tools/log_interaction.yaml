@@ -1,0 +1,21 @@
+id: log_interaction
+name: Log Interaction
+version: 1.0.0
+owner_team: customer_success
+type: rest
+method: POST
+endpoint: https://internal-api.example.com/interactions/log
+auth:
+  type: bearer_env
+  token_env_var: INTERACTION_API_TOKEN
+timeout_seconds: 10
+retry_policy:
+  max_retries: 2
+  backoff_seconds: 1
+idempotent: false
+approval_required: true
+side_effect_level: write
+allowed_environments:
+  - dev
+  - test
+  - prod

@@ -1,0 +1,75 @@
+id: ticket_router_v1
+name: Ticket Router
+version: 1.0.0
+owner_team: customer_success
+template: router_specialists
+description: >
+  Routes incoming support tickets to the appropriate specialist agent
+  based on ticket classification. Specialists handle billing, technical,
+  or general enquiries independently, then an aggregator produces the
+  unified response.
+models:
+  default: gemini-2.5-flash
+  evaluator: gemini-2.5-pro
+tool_refs:
+  - classify_ticket
+  - lookup_customer
+inputs:
+  required:
+    - ticket_id
+    - ticket_text
+steps:
+  - id: route_ticket
+    type: router
+    instruction: >
+      Classify the incoming ticket using the classify_ticket tool and
+      route to the correct specialist: billing_specialist,
+      technical_specialist, or general_specialist.
+    tools:
+      - classify_ticket
+    routes:
+      - target: billing_specialist
+        condition: category == 'billing'
+      - target: technical_specialist
+        condition: category == 'technical'
+      - target: general_specialist
+        condition: category == 'general'
+  - id: billing_specialist
+    type: llm_agent
+    instruction: >
+      You are a billing specialist. Resolve the customer's billing
+      question using available context. Be precise about amounts and dates.
+    tools:
+      - lookup_customer
+    depends_on:
+      - route_ticket
+  - id: technical_specialist
+    type: llm_agent
+    instruction: >
+      You are a technical support specialist. Diagnose the customer's
+      technical issue and provide clear troubleshooting steps.
+    tools:
+      - lookup_customer
+    depends_on:
+      - route_ticket
+  - id: general_specialist
+    type: llm_agent
+    instruction: >
+      You are a general support agent. Handle the customer's enquiry
+      politely and escalate if the issue falls outside standard policy.
+    tools:
+      - lookup_customer
+    depends_on:
+      - route_ticket
+  - id: aggregate_response
+    type: aggregator
+    instruction: >
+      Combine the specialist's response into a single, well-formatted
+      reply suitable for sending to the customer.
+    depends_on:
+      - billing_specialist
+      - technical_specialist
+      - general_specialist
+output:
+  format: json
+  schema_ref: ticket_router_output

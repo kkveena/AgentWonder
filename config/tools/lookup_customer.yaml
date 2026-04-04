@@ -1,0 +1,21 @@
+id: lookup_customer
+name: Lookup Customer
+version: 1.0.0
+owner_team: customer_success
+type: rest
+method: GET
+endpoint: https://internal-api.example.com/customers/lookup
+auth:
+  type: bearer_env
+  token_env_var: CUSTOMER_API_TOKEN
+timeout_seconds: 10
+retry_policy:
+  max_retries: 2
+  backoff_seconds: 1
+idempotent: true
+approval_required: false
+side_effect_level: read
+allowed_environments:
+  - dev
+  - test
+  - prod
