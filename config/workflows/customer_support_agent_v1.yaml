@@ -1,0 +1,35 @@
+id: customer_support_agent_v1
+name: Customer Support Agent
+version: 1.0.0
+owner_team: customer_success
+template: single_agent_with_tools
+description: >
+  A single-agent workflow that looks up customer information, answers
+  the support query, and logs the interaction for audit purposes.
+models:
+  default: gemini-2.5-flash
+tool_refs:
+  - lookup_customer
+  - log_interaction
+inputs:
+  required:
+    - customer_id
+    - query_text
+steps:
+  - id: handle_query
+    type: llm_agent
+    prompt_ref: null
+    instruction: >
+      You are a customer support assistant. Use the lookup_customer tool
+      to retrieve the customer's profile and history. Then answer the
+      customer's query concisely and helpfully.
+    tools:
+      - lookup_customer
+  - id: log_result
+    type: tool_call
+    tool: log_interaction
+    depends_on:
+      - handle_query
+output:
+  format: json
+  schema_ref: customer_support_output

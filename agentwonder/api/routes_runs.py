@@ -112,10 +112,10 @@ async def submit_run(run_request: RunRequest, request: Request) -> RunStatus:
 
     # Collect trace events from the session store
     session_data = executor.session_store.get_session(status.run_id)
-    if session_data and "trace_events" in session_data:
+    if session_data and "trace_events" in session_data.get("data", {}):
         trace_events = [
             TraceEvent.model_validate(evt)
-            for evt in session_data["trace_events"]
+            for evt in session_data["data"]["trace_events"]
         ]
         trace_store[status.run_id] = trace_events
 

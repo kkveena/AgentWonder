@@ -1,0 +1,48 @@
+id: content_review_loop_v1
+name: Content Review Loop
+version: 1.0.0
+owner_team: content_platform
+template: evaluator_loop
+description: >
+  Generates marketing or editorial content, evaluates it against quality
+  criteria, and re-generates if the evaluation fails. Once approved by the
+  evaluator, the content is published via the publish_content tool.
+models:
+  default: gemini-2.5-flash
+  evaluator: gemini-2.5-pro
+tool_refs:
+  - publish_content
+inputs:
+  required:
+    - topic
+    - target_audience
+    - tone
+steps:
+  - id: generate_draft
+    type: llm_agent
+    prompt_ref: content_generation_prompt
+    instruction: >
+      Write a polished piece of content on the given topic, tailored
+      to the target audience and tone. Output structured JSON with
+      title, body, and summary fields.
+  - id: evaluate_quality
+    type: evaluator
+    instruction: >
+      Score the generated content on relevance (0-10), clarity (0-10),
+      and tone match (0-10). Pass if all scores >= 7. Return a JSON
+      object with scores and a pass/fail verdict.
+    depends_on:
+      - generate_draft
+    loop_target: generate_draft
+    max_iterations: 3
+  - id: publish
+    type: tool_call
+    tool: publish_content
+    approval_ref: content_publish_signoff
+    depends_on:
+      - evaluate_quality
+output:
+  format: json
+  schema_ref: content_review_output
+evals:
+  suite: content_quality_smoke

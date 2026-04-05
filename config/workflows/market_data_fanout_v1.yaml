@@ -1,0 +1,41 @@
+id: market_data_fanout_v1
+name: Market Data Fanout
+version: 1.0.0
+owner_team: markets_data
+template: parallel_fanout_aggregate
+description: >
+  Fetches equities, bonds, and FX data in parallel from three independent
+  sources, then aggregates the results into a unified market snapshot.
+models:
+  default: gemini-2.5-flash
+tool_refs:
+  - fetch_equities
+  - fetch_bonds
+  - fetch_fx
+inputs:
+  required:
+    - as_of_date
+    - region
+steps:
+  - id: fanout
+    type: parallel
+    branches:
+      - id: get_equities
+        type: tool_call
+        tool: fetch_equities
+      - id: get_bonds
+        type: tool_call
+        tool: fetch_bonds
+      - id: get_fx
+        type: tool_call
+        tool: fetch_fx
+  - id: combine_snapshot
+    type: aggregator
+    instruction: >
+      Merge the equities, bonds, and FX data into a single market
+      snapshot JSON object keyed by asset class.
+    depends_on:
+      - fanout
+output:
+  format: json
+  schema_ref: market_snapshot_output

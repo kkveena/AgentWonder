@@ -1,0 +1,25 @@
+id: single_agent_with_tools
+version: 1.0.0
+description: >
+  A single LLM agent with access to registered tools. Steps execute in
+  strict linear order. Suitable for simple request-response workflows
+  that do not require routing or parallel execution.
+allowed_step_types:
+  - tool_call
+  - llm_agent
+requires_explicit_order: true
+supports_parallel: false
+max_steps: 10
+required_sections:
+  - steps
+  - tool_refs
+allowed_transitions:
+  - from: llm_agent
+    to: [tool_call, llm_agent]
+  - from: tool_call
+    to: [tool_call, llm_agent]
+requires_approval: false
+supported_models:
+  - gemini-2.5-flash
+  - gemini-2.5-pro
+supports_loop: false

@@ -1,5 +1,8 @@
 id: sequential_with_approval
 version: 1.0.0
+description: >
+  A linear workflow where steps execute in strict order, with one or more
+  explicit approval gates before side-effecting actions proceed.
 allowed_step_types:
   - tool_call
   - llm_agent
@@ -7,3 +10,21 @@ allowed_step_types:
   - evaluator
 requires_explicit_order: true
 supports_parallel: false
+max_steps: 15
+required_sections:
+  - steps
+  - tool_refs
+allowed_transitions:
+  - from: tool_call
+    to: [tool_call, llm_agent, approval]
+  - from: llm_agent
+    to: [tool_call, approval, evaluator]
+  - from: approval
+    to: [tool_call, llm_agent]
+  - from: evaluator
+    to: [tool_call, llm_agent]
+requires_approval: true
+supported_models:
+  - gemini-2.5-flash
+  - gemini-2.5-pro
+supports_loop: false

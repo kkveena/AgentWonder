@@ -1,0 +1,28 @@
+id: evaluator_loop
+version: 1.0.0
+description: >
+  A generate-evaluate-retry loop. A generator agent produces output, an
+  evaluator scores it, and if the output does not pass the quality gate
+  the generator is re-invoked. Includes a max-step cap to prevent runaway loops.
+allowed_step_types:
+  - llm_agent
+  - evaluator
+  - tool_call
+requires_explicit_order: true
+supports_parallel: false
+max_steps: 20
+required_sections:
+  - steps
+  - tool_refs
+allowed_transitions:
+  - from: llm_agent
+    to: [evaluator, tool_call]
+  - from: evaluator
+    to: [llm_agent, tool_call]
+  - from: tool_call
+    to: [llm_agent]
+requires_approval: false
+supported_models:
+  - gemini-2.5-flash
+  - gemini-2.5-pro
+supports_loop: true

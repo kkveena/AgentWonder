@@ -1,0 +1,32 @@
+id: parallel_fanout_aggregate
+version: 1.0.0
+description: >
+  A workflow that fans out to multiple parallel branches, each executing
+  independently, then merges results in an aggregator step. Useful for
+  gathering data from several sources simultaneously.
+allowed_step_types:
+  - tool_call
+  - llm_agent
+  - parallel
+  - aggregator
+requires_explicit_order: false
+supports_parallel: true
+max_steps: 20
+max_parallel_branches: 10
+required_sections:
+  - steps
+  - tool_refs
+allowed_transitions:
+  - from: parallel
+    to: [tool_call, llm_agent]
+  - from: tool_call
+    to: [aggregator]
+  - from: llm_agent
+    to: [aggregator]
+  - from: aggregator
+    to: [tool_call, llm_agent]
+requires_approval: false
+supported_models:
+  - gemini-2.5-flash
+  - gemini-2.5-pro
+supports_loop: false
