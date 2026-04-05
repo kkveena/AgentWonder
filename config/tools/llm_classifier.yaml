@@ -1,0 +1,22 @@
+id: llm_classifier
+name: LLM Text Classifier
+version: 1.0.0
+owner_team: platform
+type: llm
+method: POST
+endpoint: internal://llm/classify
+timeout_seconds: 30
+retry_policy:
+  max_retries: 1
+  backoff_seconds: 1
+idempotent: true
+approval_required: false
+side_effect_level: read
+allowed_environments:
+  - dev
+  - test
+  - prod
+description: >
+  Classifies input text into one of the provided categories using
+  Google Gemini. Accepts text and categories, returns the selected
+  category with confidence and reasoning.

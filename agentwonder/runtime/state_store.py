@@ -1,57 +1,80 @@
-"""In-memory state store for step outputs during a run.
+"""State store — pluggable persistence for per-run step outputs.
 
-Keyed by (run_id, step_id), this store holds the output of each
-completed step so downstream steps can reference earlier results.
+Provides a ``StateStore`` protocol, an in-memory implementation
+(for tests), and a file-backed implementation (for local dev).
 """
 
 from __future__ import annotations
 
-import logging
-from typing import Any
+import json
+from pathlib import Path
+from typing import Any, Protocol, runtime_checkable
 
-logger = logging.getLogger(__name__)
+from agentwonder.logging import get_logger
+
+logger = get_logger(__name__)
+
+
+@runtime_checkable
+class StateStore(Protocol):
+    """Protocol for step-output persistence backends."""
+
+    def set(self, run_id: str, step_id: str, value: Any) -> None: ...
+    def get(self, run_id: str, step_id: str) -> Any: ...
+    def get_all(self, run_id: str) -> dict[str, Any]: ...
 
 
 class InMemoryStateStore:
     """Dict-backed store for per-run step outputs."""
 
     def __init__(self) -> None:
-        # Outer key: run_id, inner key: step_id
         self._state: dict[str, dict[str, Any]] = {}
 
     def set(self, run_id: str, step_id: str, value: Any) -> None:
-        """Store the output of a step.
-
-        Args:
-            run_id: Unique identifier for the run.
-            step_id: Identifier of the step that produced the output.
-            value: The step's output value.
-        """
         if run_id not in self._state:
             self._state[run_id] = {}
         self._state[run_id][step_id] = value
-        logger.debug("Stored state for run_id='%s', step_id='%s'", run_id, step_id)
+        logger.debug("state stored", run_id=run_id, step_id=step_id)
 
     def get(self, run_id: str, step_id: str) -> Any:
-        """Retrieve the output of a specific step.
-
-        Args:
-            run_id: Unique identifier for the run.
-            step_id: Identifier of the step.
-
-        Returns:
-            The stored value, or None if not found.
-        """
         return self._state.get(run_id, {}).get(step_id)
 
     def get_all(self, run_id: str) -> dict[str, Any]:
-        """Retrieve all step outputs for a run.
-
-        Args:
-            run_id: Unique identifier for the run.
-
-        Returns:
-            Dict mapping step_id to output value. Empty dict if no
-            state exists for the run.
-        """
         return dict(self._state.get(run_id, {}))
+
+
+class FileStateStore:
+    """File-backed state store. Persists step outputs as JSON.
+
+    Each run's state is stored as ``{data_dir}/state/{run_id}.json``.
+    """
+
+    def __init__(self, data_dir: str | Path = "data") -> None:
+        self._dir = Path(data_dir) / "state"
+        self._dir.mkdir(parents=True, exist_ok=True)
+        logger.info("file state store initialized", path=str(self._dir))
+
+    def _path(self, run_id: str) -> Path:
+        return self._dir / f"{run_id}.json"
+
+    def _load(self, run_id: str) -> dict[str, Any]:
+        p = self._path(run_id)
+        if not p.exists():
+            return {}
+        return json.loads(p.read_text(encoding="utf-8"))
+
+    def _save(self, run_id: str, data: dict[str, Any]) -> None:
+        p = self._path(run_id)
+        p.write_text(json.dumps(data, default=str), encoding="utf-8")
+
+    def set(self, run_id: str, step_id: str, value: Any) -> None:
+        state = self._load(run_id)
+        state[step_id] = value
+        self._save(run_id, state)
+        logger.debug("state stored (file)", run_id=run_id, step_id=step_id)
+
+    def get(self, run_id: str, step_id: str) -> Any:
+        return self._load(run_id).get(step_id)
+
+    def get_all(self, run_id: str) -> dict[str, Any]:
+        return self._load(run_id)

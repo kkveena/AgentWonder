@@ -1,0 +1,22 @@
+id: llm_summarizer
+name: LLM Text Summarizer
+version: 1.0.0
+owner_team: platform
+type: llm
+method: POST
+endpoint: internal://llm/summarize
+timeout_seconds: 60
+retry_policy:
+  max_retries: 1
+  backoff_seconds: 2
+idempotent: true
+approval_required: false
+side_effect_level: read
+allowed_environments:
+  - dev
+  - test
+  - prod
+description: >
+  Summarizes input text using Google Gemini. Accepts a text field
+  and returns a concise summary. Useful for condensing long documents,
+  break details, or multi-step outputs into actionable summaries.
