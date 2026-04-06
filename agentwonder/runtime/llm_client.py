@@ -56,7 +56,7 @@ class GeminiClient:
     Supports .env files when python-dotenv is installed.
     """
 
-    def __init__(self, model: str = "gemini-2.0-flash") -> None:
+    def __init__(self, model: str = "gemini-2.5-flash") -> None:
         load_env()
         self._api_key = os.environ.get("GOOGLE_API_KEY", "")
         self._model = model
