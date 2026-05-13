@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Agentic Platform Squad Structure</title>
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --panel: #ffffff;
+      --ink: #152033;
+      --muted: #667085;
+      --line: #d8dee8;
+      --teal: #0f8095;
+      --teal-light: #dff6fa;
+      --blue-light: #eef4ff;
+      --green-light: #eaf7ee;
+      --orange-light: #fff3e6;
+      --purple-light: #f3ecff;
+      --gray-light: #f2f4f7;
+      --shadow: 0 12px 30px rgba(21, 32, 51, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.45;
+    }
+
+    .page {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 28px 28px 56px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 18px;
+      align-items: stretch;
+      margin-bottom: 22px;
+    }
+
+    .hero-card, .note-card, .squad-card, .role-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 7px;
+      background: linear-gradient(90deg, #0f8095, #2e90fa, #7a5af8);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 34px;
+      letter-spacing: -0.03em;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 880px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: var(--teal-light);
+      color: #065766;
+      font-size: 13px;
+      font-weight: 700;
+      border: 1px solid #b7edf5;
+    }
+
+    .legend {
+      padding: 22px;
+    }
+
+    .legend h2, .section-title {
+      margin: 0 0 14px;
+      font-size: 18px;
+      letter-spacing: -0.015em;
+    }
+
+    .legend-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+    }
+
+    .legend-item {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      align-items: center;
+      gap: 8px;
+      padding: 9px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fbfcfe;
+      font-size: 13px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 26px;
+      height: 26px;
+      padding: 0 8px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 12px;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    .r { background: var(--blue-light); color: #175cd3; border-color: #c7d7fe; }
+    .a { background: var(--green-light); color: #087443; border-color: #bfe7ca; }
+    .c { background: var(--orange-light); color: #b54708; border-color: #ffd6a8; }
+    .i { background: var(--purple-light); color: #6941c6; border-color: #d9c7ff; }
+    .p { background: var(--gray-light); color: #475467; border-color: #d0d5dd; }
+
+    .section {
+      margin-top: 22px;
+    }
+
+    .squad-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .squad-card {
+      overflow: hidden;
+    }
+
+    .squad-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #ffffff, #f9fbfd);
+    }
+
+    .squad-name {
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: -0.015em;
+    }
+
+    .owner-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .owner-row strong { color: var(--ink); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    th, td {
+      padding: 11px 12px;
+      vertical-align: top;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+    }
+
+    th {
+      background: #fbfcfe;
+      color: #344054;
+      text-align: left;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    .people {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .person {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 6px 7px;
+      background: #fff;
+      border: 1px solid #edf0f5;
+      border-radius: 10px;
+    }
+
+    .person span:first-child {
+      overflow-wrap: anywhere;
+    }
+
+    .role-tags {
+      display: inline-flex;
+      gap: 3px;
+      flex-shrink: 0;
+    }
+
+    .empty {
+      color: #98a2b3;
+      font-style: italic;
+      padding: 7px 0;
+    }
+
+    .note-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .note-card, .role-card {
+      padding: 18px;
+    }
+
+    .note-card h3, .role-card h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      letter-spacing: -0.015em;
+    }
+
+    .note-card p, .role-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13.5px;
+    }
+
+    .ai-card {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .ai-list {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 13.5px;
+    }
+
+    .ai-list li { margin: 6px 0; }
+
+    .footer {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    @media (max-width: 1050px) {
+      .hero, .squad-grid, .note-grid, .ai-card { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .page { max-width: none; padding: 12px; }
+      .hero-card, .note-card, .squad-card, .role-card { box-shadow: none; break-inside: avoid; }
+      .squad-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="hero-card">
+        <h1>Agentic Platform Development Squad</h1>
+        <p class="subtitle">Reference structure for squads, ownership, accountable leads, consulted stakeholders, and informed participants across platform planes, MCP, generic chat, and use-case delivery.</p>
+        <div class="meta">
+          <span class="pill">Agentic Ops Sponsor: Deepesh</span>
+          <span class="pill">Squad model: Product + Engineering + DS + UI + Governance</span>
+          <span class="pill">Human-in-the-loop and standards-led delivery</span>
+        </div>
+      </div>
+      <div class="hero-card legend">
+        <h2>RACI / Placeholder Legend</h2>
+        <div class="legend-grid">
+          <div class="legend-item"><span class="badge r">R</span><span>Responsible for development</span></div>
+          <div class="legend-item"><span class="badge a">A</span><span>Accountable for delivery</span></div>
+          <div class="legend-item"><span class="badge c">C</span><span>Consulted during design / build</span></div>
+          <div class="legend-item"><span class="badge i">I</span><span>Informed on progress</span></div>
+          <div class="legend-item"><span class="badge p">P</span><span>Placeholder / hiring ask</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Squad Structure</h2>
+      <div class="squad-grid">
+
+        <article class="squad-card">
+          <div class="squad-head">
+            <h3 class="squad-name">User Plane</h3>
+            <div class="owner-row"><span><strong>Lead:</strong> Paromita - A</span><span><strong>Governance:</strong> Sashi - A</span></div>
+          </div>
+          <table>
+            <thead><tr><th>Product</th><th>Engineer</th><th>DS</th><th>UI</th></tr></thead>
+            <tbody><tr>
+              <td><div class="people"><div class="person"><span>Zohar</span><span class="role-tags"><span class="badge r">R</span></span></div></div></td>
+              <td><div class="people"><div class="person"><span>Evan</span><span class="role-tags"><span class="badge r">R</span><span class="badge a">A</span></span></div><div class="person"><span>Ajai</span><span class="role-tags"><span class="badge r">R</span></span></div></div></td>
+              <td><div class="people"><div class="person"><span>Abhishek</span><span class="role-tags"><span class="badge a">A</span></span></div><div class="person"><span>Rishi</span><span class="role-tags"><span class="badge r">R</span></span></div><div class="person"><span>Manasi</span><span class="role-tags"><span class="badge r">R</span></span></div><div class="person"><span>Tomi</span><span class="role-tags"><span class="badge i">I</span><span class="badge c">C</span></span></div></div></td>
+              <td><div class="people"><div class="person"><span>Paromita</span><span class="role-tags"><span class="badge r">R</span><span class="badge a">A</span></span></div><div class="person"><span>Dipak</span><span class="role-tags"><span class="badge r">R</span></span></div><div class="person"><span>Tanvi (UX)</span><span class="role-tags"><span class="badge r">R</span></span></div><div class="person"><span>UI</span><span class="role-tags"><span class="badge p">P</span></span></div></div></td>
+            </tr></tbody>
+          </table>
+        </article>
+
+        <article class="squad-card">
+          <div class="squad-head">
+            <h3 class="squad-name">Development Plane</h3>
+            <div class="owner-row"><span><strong>Lead:</strong> Paromita - A</span><span><strong>Governance:</strong> Zohar - A</span></div>
+          </div>
+          <table>
+            <thead><tr><th>Product</th><th>Engineer</th><th>DS</th><th>UI</th></tr></thead>
+            <tbody><tr>
+              <td><div class="people"><div class="person"><span>Sashi</span><span class="role-tags"><span class="badge r">R</span></span></div></div></td>
+              <td><div class="people"><div class="person"><span>Evan</span><span class="role-tags"><span class="badge a">A</span><span class="badge i">I</span><span class="badge c">C</span></span></div><div class="person"><span>Mini</span><span class="role-tags"><span class="badge r">R</span></span></div><div class="person"><span>Lokesh</span><span class="role-tags"><span class="badge r">R</span></span></div><div class="person"><span>Engineer</span><span class="role-tags"><span class="badge p">P</span></span></div></div></td>
+              <td><div class="people"><div class="person"><span>Tomi</span><span class="role-tags"><span class="badge i">I</span><span class="badge c">C</span></span></div><div class="person"><span>Harsh</span><span class="role-tags"><span class="badge r">R</span><span class="badge a">A</span></span></div><div class="person"><span>Deena</span><span class="role-tags"><span class="badge r">R</span></span></div><div class="person"><span>DS</span><span class="role-tags"><span class="badge r">R</span></span></div></div></td>
+              <td><div class="people"><div class="person"><span>Ashley</span><span class="role-tags"><span class="badge r">R</span></span></div><div class="person"><span>Paromita</span><span class="role-tags"><span class="badge a">A</span><span class="badge c">C</span><span class="badge i">I</span></span></div><div class="person"><span>Aveleen</span><span class="role-tags"><span class="badge r">R</span></span></div><div class="person"><span>Ravindra</span><span class="role-tags"><span class="badge r">R</span></span></div><div class="person"><span>Prajkat (UX)</span><span class="role-tags"><span class="badge r">R</span></span></div></div></td>
+            </tr></tbody>
+          </table>
+        </article>
+
+        <article class="squad-card">
+          <div class="squad-head">
+            <h3 class="squad-name">Control Plane</h3>
+            <div class="owner-row"><span><strong>Lead:</strong> Abhishek - A</span><span><strong>Governance:</strong> Avishek - A</span></div>
+          </div>
+          <table>
+            <thead><tr><th>Product</th><th>Engineer</th><th>DS</th><th>UI</th></tr></thead>
+            <tbody><tr>
+              <td><div class="people"><div class="person"><span>Deepesh</span><span class="role-tags"><span class="badge r">R</span></span></div></div></td>
+              <td><div class="people"><div class="person"><span>Hitesh</span><span class="role-tags"><span class="badge a">A</span></span></div><div class="person"><span>Anish</span><span class="role-tags"><span class="badge r">R</span></span></div></div></td>
+              <td><div class="people"><div class="person"><span>Rishi</span><span class="role-tags"><span class="badge r">R</span></span></div><div class="person"><span>Abhishek</span><span class="role-tags"><span class="badge a">A</span></span></div></div></td>
+              <td><div class="empty">UI not required</div></td>
+            </tr></tbody>
+          </table>
+        </article>
+
+        <article class="squad-card">
+          <div class="squad-head">
+            <h3 class="squad-name">MCP</h3>
+            <div class="owner-row"><span><strong>Lead:</strong> Tomi - A</span><span><strong>Governance:</strong> Ashwini - A</span></div>
+          </div>
+          <table>
+            <thead><tr><th>Product</th><th>Engineer</th><th>DS</th><th>UI</th></tr></thead>
+            <tbody><tr>
+              <td><div class="people"><div class="person"><span>Krishna</span><span class="role-tags"><span class="badge r">R</span></span></div></div></td>
+              <td><div class="people"><div class="person"><span>Hitesh</span><span class="role-tags"><span class="badge r">R</span><span class="badge a">A</span></span></div><div class="person"><span>Evan</span><span class="role-tags"><span class="badge i">I</span><span class="badge c">C</span></span></div><div class="person"><span>Engineer</span><span class="role-tags"><span class="badge p">P</span></span></div></div></td>
+              <td><div class="people"><div class="person"><span>Tomi</span><span class="role-tags"><span class="badge a">A</span><span class="badge i">I</span><span class="badge c">C</span></span></div><div class="person"><span>Harsh</span><span class="role-tags"><span class="badge r">R</span></span></div><div class="person"><span>DS</span><span class="role-tags"><span class="badge p">P</span></span></div></div></td>
+              <td><div class="empty">UI not required</div></td>
+            </tr></tbody>
+          </table>
+        </article>
+
+        <article class="squad-card">
+          <div class="squad-head">
+            <h3 class="squad-name">Generic Chat</h3>
+            <div class="owner-row"><span><strong>Lead:</strong> Krishna - A</span><span><strong>Governance:</strong> Deepesh - A</span></div>
+          </div>
+          <table>
+            <thead><tr><th>Product</th><th>Engineer</th><th>DS</th><th>UI</th></tr></thead>
+            <tbody><tr>
+              <td><div class="people"><div class="person"><span>Jaydeep</span><span class="role-tags"><span class="badge r">R</span></span></div></div></td>
+              <td><div class="people"><div class="person"><span>Evan</span><span class="role-tags"><span class="badge i">I</span><span class="badge c">C</span></span></div><div class="person"><span>Amit</span><span class="role-tags"><span class="badge r">R</span></span></div><div class="person"><span>Vivek</span><span class="role-tags"><span class="badge a">A</span></span></div></div></td>
+              <td><div class="people"><div class="person"><span>Krishna</span><span class="role-tags"><span class="badge a">A</span></span></div><div class="person"><span>DS</span><span class="role-tags"><span class="badge r">R</span></span></div><div class="person"><span>Tomi</span><span class="role-tags"><span class="badge r">R</span></span></div></div></td>
+              <td><div class="people"><div class="person"><span>Ravindra</span><span class="role-tags"><span class="badge r">R</span></span></div><div class="person"><span>Paromita</span><span class="role-tags"><span class="badge a">A</span></span></div></div></td>
+            </tr></tbody>
+          </table>
+        </article>
+
+        <article class="squad-card">
+          <div class="squad-head">
+            <h3 class="squad-name">Use Case: EDGE Assist</h3>
+            <div class="owner-row"><span><strong>Lead:</strong> Harsh - A</span><span><strong>Governance:</strong> Deepesh - A</span></div>
+          </div>
+          <table>
+            <thead><tr><th>Product</th><th>Engineer</th><th>DS</th><th>UI</th></tr></thead>
+            <tbody><tr>
+              <td><div class="people"><div class="person"><span>Jaydeep</span><span class="role-tags"><span class="badge r">R</span></span></div></div></td>
+              <td><div class="people"><div class="person"><span>Amit</span><span class="role-tags"><span class="badge a">A</span></span></div><div class="person"><span>Engineer</span><span class="role-tags"><span class="badge r">R</span></span></div></div></td>
+              <td><div class="people"><div class="person"><span>Krishna</span><span class="role-tags"><span class="badge r">R</span><span class="badge i">I</span><span class="badge c">C</span></span></div><div class="person"><span>Prashant</span><span class="role-tags"><span class="badge i">I</span><span class="badge c">C</span></span></div><div class="person"><span>DS</span><span class="role-tags"><span class="badge a">A</span></span></div><div class="person"><span>DS</span><span class="role-tags"><span class="badge p">P</span></span></div></div></td>
+              <td><div class="empty">UI not required</div></td>
+            </tr></tbody>
+          </table>
+        </article>
+
+        <article class="squad-card">
+          <div class="squad-head">
+            <h3 class="squad-name">Use Case: Fails</h3>
+            <div class="owner-row"><span><strong>Lead:</strong> Krishna - A</span><span><strong>Governance:</strong> Deepesh - A</span></div>
+          </div>
+          <table>
+            <thead><tr><th>Product</th><th>Engineer</th><th>DS</th><th>UI</th></tr></thead>
+            <tbody><tr>
+              <td><div class="people"><div class="person"><span>Bishmaya</span><span class="role-tags"><span class="badge r">R</span></span></div></div></td>
+              <td><div class="people"><div class="person"><span>Avishek</span><span class="role-tags"><span class="badge i">I</span><span class="badge c">C</span></span></div><div class="person"><span>Engineer</span><span class="role-tags"><span class="badge p">P</span></span></div></div></td>
+              <td><div class="people"><div class="person"><span>Krishna</span><span class="role-tags"><span class="badge a">A</span></span></div><div class="person"><span>DS</span><span class="role-tags"><span class="badge r">R</span></span></div><div class="person"><span>DS</span><span class="role-tags"><span class="badge r">R</span></span></div><div class="person"><span>DS</span><span class="role-tags"><span class="badge r">R</span></span></div></div></td>
+              <td><div class="empty">UI not required</div></td>
+            </tr></tbody>
+          </table>
+        </article>
+
+        <article class="squad-card">
+          <div class="squad-head">
+            <h3 class="squad-name">Across Squads</h3>
+            <div class="owner-row"><span><strong>Governance:</strong> Deepesh - I, C</span></div>
+          </div>
+          <table>
+            <thead><tr><th>Product</th><th>Engineer</th><th>DS</th><th>UI</th></tr></thead>
+            <tbody><tr>
+              <td><div class="people"><div class="person"><span>Deepesh</span><span class="role-tags"><span class="badge i">I</span><span class="badge c">C</span></span></div></div></td>
+              <td><div class="people"><div class="person"><span>Evan</span><span class="role-tags"><span class="badge c">C</span></span></div></div></td>
+              <td><div class="people"><div class="person"><span>Tomi, Krishna</span><span class="role-tags"><span class="badge i">I</span><span class="badge c">C</span></span></div></div></td>
+              <td><div class="people"><div class="person"><span>Paromita</span><span class="role-tags"><span class="badge i">I</span><span class="badge c">C</span></span></div></div></td>
+            </tr></tbody>
+          </table>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Operating Model Notes</h2>
+      <div class="note-grid">
+        <div class="note-card">
+          <h3>Squad Lead</h3>
+          <p>Accountable for overall squad success, progress visibility, roadblock escalation, and keeping the squad aligned to outcomes.</p>
+        </div>
+        <div class="note-card">
+          <h3>Governance</h3>
+          <p>Ensures solid design principles, edge-case thinking, guardrails, policy adherence, and compliance with Citi standards.</p>
+        </div>
+        <div class="note-card">
+          <h3>Product + Governance</h3>
+          <p>Own show-and-tell discipline, keep the team grounded in business needs, and validate that design remains explainable and usable.</p>
+        </div>
+        <div class="note-card">
+          <h3>MVP Quality Bar</h3>
+          <p>MVP does not mean poor design. The design should be thorough, open, and ready to expand as the platform matures.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section ai-card">
+      <div class="role-card">
+        <h3>AI Integration Engineer</h3>
+        <p>A cross-squad role focused on end-to-end integration, stakeholder alignment, platform quality, and future-proofing.</p>
+      </div>
+      <div class="role-card">
+        <h3>Expected Responsibilities</h3>
+        <ul class="ai-list">
+          <li>Interface with business, product, engineering, DS, UI, and governance stakeholders.</li>
+          <li>Ensure data quality and integration readiness across tools, workflows, policies, prompts, and platform services.</li>
+          <li>Understand current platform state and maintain a clear vision of how the platform integrates as one unit.</li>
+          <li>Keep ears open for future requirements and help steer or change direction when needed for platform success.</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="footer">Agentic Platform Squad Structure · HTML5 reference page · Built for easy team review</div>
+  </main>
+</body>
+</html>
