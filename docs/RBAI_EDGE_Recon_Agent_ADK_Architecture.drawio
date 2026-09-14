@@ -1,0 +1,300 @@
+<mxfile host="app.diagrams.net" agent="ChatGPT" pages="2">
+  <diagram name="Recon Agentic Architecture" id="0">
+    <mxGraphModel dx="1829" dy="1095" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontSize=30;fontColor=#0B1B4D;strokeColor=none;fillColor=none;" value="&lt;b&gt;RBAI/EDGE — Reconciliation Break AI &amp;amp; Investigation Agent&lt;/b&gt;" vertex="1">
+          <mxGeometry height="42" width="1480" x="160" y="18" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" parent="1" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontSize=16;fontColor=#475569;strokeColor=none;fillColor=none;" value="&lt;i&gt;Controlled autonomy: deterministic reconciliation &amp;amp; execution paths, with bounded agentic reasoning for ambiguity and novel breaks&lt;/i&gt;" vertex="1">
+          <mxGeometry height="30" width="1280" x="260" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_business" parent="1" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;rounded=1;arcSize=12;fontSize=16;strokeColor=#0B55C0;fillColor=#F4F8FF;fontColor=#0B1B4D;strokeWidth=2;" value="&lt;b&gt;Business Trigger&lt;br&gt;&amp;amp; Channels&lt;/b&gt;" vertex="1">
+          <mxGeometry height="135" width="120" x="20" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_orch" parent="1" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;rounded=1;arcSize=12;fontSize=16;strokeColor=#6D28D9;fillColor=#F8F5FF;fontColor=#0B1B4D;strokeWidth=2;" value="&lt;b&gt;ADK Orchestration&lt;br&gt;&amp;amp; Agents&lt;/b&gt;" vertex="1">
+          <mxGeometry height="570" width="120" x="20" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_tools" parent="1" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;rounded=1;arcSize=12;fontSize=16;strokeColor=#0F766E;fillColor=#F2FCFC;fontColor=#0B1B4D;strokeWidth=2;" value="&lt;b&gt;MCP Tools / APIs&lt;br&gt;&amp;amp; State&lt;/b&gt;" vertex="1">
+          <mxGeometry height="170" width="120" x="20" y="875" as="geometry" />
+        </mxCell>
+        <mxCell id="tlm" parent="1" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=10;rounded=1;arcSize=12;fontSize=13;strokeColor=#0B55C0;fillColor=#F4F8FF;fontColor=#111827;strokeWidth=2;" value="&lt;b&gt;TLM Cairo / Kafka&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#475569&quot;&gt;EOD / intraday break event&lt;br&gt;Sole authoritative exception source&lt;/font&gt;" vertex="1">
+          <mxGeometry height="78" width="300" x="175" y="115" as="geometry" />
+        </mxCell>
+        <mxCell id="analyst" parent="1" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=10;rounded=1;arcSize=12;fontSize=13;strokeColor=#0B55C0;fillColor=#F4F8FF;fontColor=#111827;strokeWidth=2;" value="&lt;b&gt;Analyst / EDGE Workbench&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#475569&quot;&gt;Interactive investigation&lt;br&gt;Ad-hoc questions / complex breaks&lt;/font&gt;" vertex="1">
+          <mxGeometry height="78" width="300" x="520" y="115" as="geometry" />
+        </mxCell>
+        <mxCell id="human" parent="1" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=10;rounded=1;arcSize=12;fontSize=13;strokeColor=#0B55C0;fillColor=#F4F8FF;fontColor=#111827;strokeWidth=2;" value="&lt;b&gt;Human Review / Approval Queue&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#475569&quot;&gt;Approve • edit • reject • override&lt;br&gt;SETTS Recon / StockLoan MO / Tech / GRU&lt;/font&gt;" vertex="1">
+          <mxGeometry height="78" width="355" x="865" y="115" as="geometry" />
+        </mxCell>
+        <mxCell id="policy" parent="1" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=10;rounded=1;arcSize=12;fontSize=13;strokeColor=#C2410C;fillColor=#FFF7ED;fontColor=#111827;strokeWidth=2;" value="&lt;b&gt;Policy &amp;amp; Configuration&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#475569&quot;&gt;decision_tree.yaml • thresholds • output schemas&lt;br&gt;execution whitelist • queue routing • guardrails&lt;/font&gt;" vertex="1">
+          <mxGeometry height="78" width="400" x="1265" y="115" as="geometry" />
+        </mxCell>
+        <mxCell id="primary_badge" parent="1" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=10;rounded=1;arcSize=12;fontSize=13;strokeColor=#166534;fillColor=#F3FBF3;fontColor=#111827;strokeWidth=2;" value="&lt;b&gt;PRIMARY PRODUCTION PATH — deterministic stage order&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#475569&quot;&gt;Predictable, testable, auditable; LLM used only inside explicitly bounded stages.&lt;/font&gt;" vertex="1">
+          <mxGeometry height="48" width="950" x="175" y="215" as="geometry" />
+        </mxCell>
+        <mxCell id="auto_badge" parent="1" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=10;rounded=1;arcSize=12;fontSize=13;strokeColor=#6D28D9;fillColor=#F8F5FF;fontColor=#111827;strokeWidth=2;" value="&lt;b&gt;BOUNDED AUTONOMY&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#475569&quot;&gt;Only for unmatched / ambiguous / analyst-initiated investigation. No direct write execution.&lt;/font&gt;" vertex="1">
+          <mxGeometry height="48" width="510" x="1155" y="215" as="geometry" />
+        </mxCell>
+        <mxCell id="s1" parent="1" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=10;rounded=1;arcSize=12;fontSize=13;strokeColor=#166534;fillColor=#F3FBF3;fontColor=#111827;strokeWidth=2;" value="&lt;font style=&quot;font-size:17px&quot;&gt;&lt;b&gt;1. Exception Ingestion&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;b&gt;CustomAgent — deterministic&lt;/b&gt;&lt;br&gt;&lt;br&gt;• Read TLM exception + prior narration&lt;br&gt;• Normalize account / ISIN / quantity / amount / counterparty / dates&lt;br&gt;• Seed session state &amp;amp; correlation IDs&lt;br&gt;• Write “investigation commenced” event&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#166534&quot;&gt;&lt;b&gt;Why:&lt;/b&gt; no judgment required; exact reproducibility.&lt;/font&gt;" vertex="1">
+          <mxGeometry height="265" width="245" x="170" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="s2" parent="1" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=10;rounded=1;arcSize=12;fontSize=13;strokeColor=#6D28D9;fillColor=#F8F5FF;fontColor=#111827;strokeWidth=2;" value="&lt;font style=&quot;font-size:17px&quot;&gt;&lt;b&gt;2. Path Identification&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;b&gt;LlmAgent + output_schema&lt;/b&gt;&lt;br&gt;&lt;br&gt;• Match break to configured decision-tree path&lt;br&gt;• Return path_id + match + confidence&lt;br&gt;• Never invent new operational policy&lt;br&gt;• Unmatched / weak match → complex-break path&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#6D28D9&quot;&gt;&lt;b&gt;Why LLM:&lt;/b&gt; semantic classification across heterogeneous exception text.&lt;/font&gt;" vertex="1">
+          <mxGeometry height="265" width="245" x="430" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="s3" parent="1" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=10;rounded=1;arcSize=12;fontSize=13;strokeColor=#166534;fillColor=#F3FBF3;fontColor=#111827;strokeWidth=2;" value="&lt;font style=&quot;font-size:17px&quot;&gt;&lt;b&gt;3. Right-Side Population&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;b&gt;ParallelAgent&lt;/b&gt;&lt;br&gt;&lt;br&gt;Child source-family agents:&lt;br&gt;• settlement_sources_agent&lt;br&gt;• stockrecord_sources_agent&lt;br&gt;• books_records_sources_agent&lt;br&gt;• external_sources_agent&lt;br&gt;&lt;br&gt;Each child is deterministic and writes its own state slice.&lt;br&gt;&lt;font color=&quot;#166534&quot;&gt;&lt;b&gt;Why parallel:&lt;/b&gt; independent reads; meet per-source latency budget.&lt;/font&gt;" vertex="1">
+          <mxGeometry height="265" width="270" x="690" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="s4" parent="1" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=10;rounded=1;arcSize=12;fontSize=13;strokeColor=#166534;fillColor=#F3FBF3;fontColor=#111827;strokeWidth=2;" value="&lt;font style=&quot;font-size:17px&quot;&gt;&lt;b&gt;4. Root-Cause Analysis&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;b&gt;Custom + LLM narrative + validator&lt;/b&gt;&lt;br&gt;&lt;br&gt;• root_cause_analysis_agent — deterministic comparisons / rules&lt;br&gt;• root_cause_narrative_agent — explain facts in analyst language&lt;br&gt;• analysis_validation_agent — completeness, contradictions, policy, composite score&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#166534&quot;&gt;&lt;b&gt;Boundary:&lt;/b&gt; model narrates; code establishes facts.&lt;/font&gt;" vertex="1">
+          <mxGeometry height="265" width="290" x="975" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="s5" parent="1" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=10;rounded=1;arcSize=12;fontSize=13;strokeColor=#C2410C;fillColor=#FFF7ED;fontColor=#111827;strokeWidth=2;" value="&lt;font style=&quot;font-size:17px&quot;&gt;&lt;b&gt;5. Resolution Review&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;b&gt;LoopAgent (bounded iterations)&lt;/b&gt;&lt;br&gt;&lt;br&gt;• resolution_proposal_agent — proposed action + draft narration&lt;br&gt;• proposal_validation_agent — deterministic policy checks&lt;br&gt;• human_review_resolution_agent — approve / edit / reject&lt;br&gt;• Edits re-enter validation before approval&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#C2410C&quot;&gt;&lt;b&gt;Gate:&lt;/b&gt; confidence does not grant permission; policy does.&lt;/font&gt;" vertex="1">
+          <mxGeometry height="265" width="245" x="1280" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="s6" parent="1" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=10;rounded=1;arcSize=12;fontSize=13;strokeColor=#166534;fillColor=#F3FBF3;fontColor=#111827;strokeWidth=2;" value="&lt;font style=&quot;font-size:17px&quot;&gt;&lt;b&gt;6. Resolution Execution&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;b&gt;SequentialAgent — deterministic&lt;/b&gt;&lt;br&gt;&lt;br&gt;• target_system_execution_agent&lt;br&gt;• tlm_narration_agent&lt;br&gt;• tlm_automatch_agent&lt;br&gt;• review_tags_agent&lt;br&gt;• Idempotency + execution reference + immutable audit&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#166534&quot;&gt;&lt;b&gt;Why:&lt;/b&gt; ordered side effects must be safe and repeatable.&lt;/font&gt;" vertex="1">
+          <mxGeometry height="265" width="245" x="1540" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="autonomous" parent="1" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=10;rounded=1;arcSize=12;fontSize=13;strokeColor=#6D28D9;fillColor=#F8F5FF;fontColor=#111827;strokeWidth=2;" value="&lt;font style=&quot;font-size:18px&quot;&gt;&lt;b&gt;Autonomous Complex-Break Investigation Agent&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;b&gt;Bounded LLM agent / agentic loop&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Observe → form hypothesis → select approved read tools → gather evidence → reflect → revise → propose / escalate&lt;/b&gt;&lt;br&gt;&lt;br&gt;Use when: no configured path matches; evidence conflicts; a new break pattern appears; analyst asks an ad-hoc investigative question.&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#6D28D9&quot;&gt;&lt;b&gt;Hard boundary:&lt;/b&gt; read-only tools by default; cannot bypass policy, HITL, or Stage 6 execution controls. Returns an evidence-backed proposal to Stage 5.&lt;/font&gt;" vertex="1">
+          <mxGeometry height="220" width="690" x="430" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="why_both" parent="1" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=12;rounded=1;arcSize=10;fontSize=13;strokeColor=#94A3B8;fillColor=#F8FAFC;fontColor=#111827;strokeWidth=1.5;" value="&lt;font style=&quot;font-size:18px&quot;&gt;&lt;b&gt;Why use both deterministic and autonomous patterns?&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;table border=&quot;0&quot; cellpadding=&quot;3&quot;&gt;&lt;tr&gt;&lt;td width=&quot;48%&quot;&gt;&lt;b&gt;&lt;font color=&quot;#166534&quot;&gt;Deterministic path&lt;/font&gt;&lt;/b&gt;&lt;br&gt;• Known reconciliation patterns&lt;br&gt;• Stable stage ordering&lt;br&gt;• Regulatory traceability&lt;br&gt;• Lower cost / latency&lt;br&gt;• Repeatable tests &amp;amp; controls&lt;br&gt;• Safe writes / idempotency&lt;/td&gt;&lt;td width=&quot;4%&quot;&gt;&lt;/td&gt;&lt;td width=&quot;48%&quot;&gt;&lt;b&gt;&lt;font color=&quot;#6D28D9&quot;&gt;Autonomous path&lt;/font&gt;&lt;/b&gt;&lt;br&gt;• Novel / ambiguous breaks&lt;br&gt;• Dynamic evidence discovery&lt;br&gt;• Hypothesis exploration&lt;br&gt;• Contradictory evidence&lt;br&gt;• Analyst-led investigation&lt;br&gt;• Extends coverage without weakening execution controls&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+          <mxGeometry height="220" width="635" x="1150" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="tool_tlm" parent="1" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;rounded=1;arcSize=10;fontSize=13;strokeColor=#0F766E;fillColor=#FFFFFF;fontColor=#0F172A;strokeWidth=1.5;" value="&lt;b&gt;TLM Cairo MCP&lt;/b&gt;&lt;br&gt;get_tlm_exception&lt;br&gt;get_tlm_narrations&lt;br&gt;write_tlm_narration / auto-match" vertex="1">
+          <mxGeometry height="115" width="355" x="170" y="900" as="geometry" />
+        </mxCell>
+        <mxCell id="tool_right" parent="1" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;rounded=1;arcSize=10;fontSize=13;strokeColor=#0F766E;fillColor=#FFFFFF;fontColor=#0F172A;strokeWidth=1.5;" value="&lt;b&gt;Right-Side Read Tools&lt;/b&gt;&lt;br&gt;Settlement • ATM/ManTran • IGSR • Stock Record&lt;br&gt;Stock Loan • Full Suite / FlexCube • External / SSI" vertex="1">
+          <mxGeometry height="115" width="410" x="550" y="900" as="geometry" />
+        </mxCell>
+        <mxCell id="tool_target" parent="1" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;rounded=1;arcSize=10;fontSize=13;strokeColor=#0F766E;fillColor=#FFFFFF;fontColor=#0F172A;strokeWidth=1.5;" value="&lt;b&gt;Target-System Write Tools&lt;/b&gt;&lt;br&gt;Whitelisted actions only&lt;br&gt;Execution result + reference + idempotency key" vertex="1">
+          <mxGeometry height="115" width="350" x="985" y="900" as="geometry" />
+        </mxCell>
+        <mxCell id="tool_state" parent="1" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;rounded=1;arcSize=10;fontSize=13;strokeColor=#0F766E;fillColor=#FFFFFF;fontColor=#0F172A;strokeWidth=1.5;" value="&lt;b&gt;State / Audit / Observability&lt;/b&gt;&lt;br&gt;DatabaseSessionService (PostgreSQL)&lt;br&gt;AgentEvent / AgentReviewTask • metrics / traces / guardrails" vertex="1">
+          <mxGeometry height="115" width="425" x="1360" y="900" as="geometry" />
+        </mxCell>
+        <mxCell id="e_tlm_s1" edge="1" parent="1" source="tlm" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#166534;fontSize=12;fontFamily=Arial;" target="s1" value="break event">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_s1_s2" edge="1" parent="1" source="s1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#166534;fontSize=12;fontFamily=Arial;" target="s2" value="normalized break">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_s2_s3" edge="1" parent="1" source="s2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#166534;fontSize=12;fontFamily=Arial;" target="s3" value="configured path">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_s3_s4" edge="1" parent="1" source="s3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#166534;fontSize=12;fontFamily=Arial;" target="s4" value="evidence">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_s4_s5" edge="1" parent="1" source="s4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#166534;fontSize=12;fontFamily=Arial;" target="s5" value="validated analysis">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_s5_s6" edge="1" parent="1" source="s5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#166534;fontSize=12;fontFamily=Arial;" target="s6" value="approved / auto-eligible">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_human_s5" edge="1" parent="1" source="human" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#0B55C0;fontSize=12;fontFamily=Arial;" target="s5" value="review decision">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_analyst_auto" edge="1" parent="1" source="analyst" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#6D28D9;fontSize=12;fontFamily=Arial;" target="autonomous" value="interactive / complex investigation">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_s2_auto" edge="1" parent="1" source="s2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#6D28D9;fontSize=12;fontFamily=Arial;" target="autonomous" value="unmatched / low confidence">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_s4_auto" edge="1" parent="1" source="s4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#6D28D9;fontSize=12;fontFamily=Arial;" target="autonomous" value="conflicting evidence">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_auto_s5" edge="1" parent="1" source="autonomous" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#6D28D9;fontSize=12;fontFamily=Arial;" target="s5" value="evidence-backed proposal">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_policy_1" edge="1" parent="1" source="policy" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeWidth=1.5;strokeColor=#64748B;dashed=1;dashPattern=6 5;fontSize=11;fontFamily=Arial;" target="s2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_policy_2" edge="1" parent="1" source="policy" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeWidth=1.5;strokeColor=#64748B;dashed=1;dashPattern=6 5;fontSize=11;fontFamily=Arial;" target="s4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_policy_3" edge="1" parent="1" source="policy" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeWidth=1.5;strokeColor=#64748B;dashed=1;dashPattern=6 5;fontSize=11;fontFamily=Arial;" target="s5" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_policy_4" edge="1" parent="1" source="policy" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeWidth=1.5;strokeColor=#64748B;dashed=1;dashPattern=6 5;fontSize=11;fontFamily=Arial;" target="s6" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_s1_tlm" edge="1" parent="1" source="s1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeWidth=1.5;strokeColor=#64748B;dashed=1;dashPattern=6 5;fontSize=11;fontFamily=Arial;" target="tool_tlm" value="read / narrate">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_s3_right" edge="1" parent="1" source="s3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeWidth=1.5;strokeColor=#64748B;dashed=1;dashPattern=6 5;fontSize=11;fontFamily=Arial;" target="tool_right" value="parallel reads">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_auto_right" edge="1" parent="1" source="autonomous" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeWidth=1.5;strokeColor=#64748B;dashed=1;dashPattern=6 5;fontSize=11;fontFamily=Arial;" target="tool_right" value="approved read tools">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_s6_target" edge="1" parent="1" source="s6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeWidth=1.5;strokeColor=#64748B;dashed=1;dashPattern=6 5;fontSize=11;fontFamily=Arial;" target="tool_target" value="controlled writes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_s6_tlm" edge="1" parent="1" source="s6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeWidth=1.5;strokeColor=#64748B;dashed=1;dashPattern=6 5;fontSize=11;fontFamily=Arial;" target="tool_tlm" value="narration / auto-match">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_state_s1" edge="1" parent="1" source="tool_state" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeWidth=1.5;strokeColor=#64748B;dashed=1;dashPattern=6 5;fontSize=11;fontFamily=Arial;" target="s1" value="session state">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_state_s5" edge="1" parent="1" source="tool_state" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeWidth=1.5;strokeColor=#64748B;dashed=1;dashPattern=6 5;fontSize=11;fontFamily=Arial;" target="s5" value="review task / audit">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_state_s6" edge="1" parent="1" source="tool_state" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeWidth=1.5;strokeColor=#64748B;dashed=1;dashPattern=6 5;fontSize=11;fontFamily=Arial;" target="s6" value="execution audit">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Agent Catalog &amp; ADK Mapping" id="1">
+    <mxGraphModel dx="1800" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title2" value="&lt;b&gt;RBAI/EDGE — Agent Catalog &amp;amp; ADK Mapping&lt;/b&gt;" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontSize=30;fontColor=#0B1B4D;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="180" y="18" width="1440" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle2" value="&lt;i&gt;High-level responsibilities, contracts and rationale for each agent primitive&lt;/i&gt;" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontSize=16;fontColor=#475569;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="330" y="62" width="1140" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="h1" value="&lt;b&gt;Stage / Agent&lt;/b&gt;" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontSize=14;fontColor=#FFFFFF;strokeColor=#0B1B4D;fillColor=#0B1B4D;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="120" width="300" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="h2" value="&lt;b&gt;ADK Primitive&lt;/b&gt;" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontSize=14;fontColor=#FFFFFF;strokeColor=#0B1B4D;fillColor=#0B1B4D;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="120" width="240" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="h3" value="&lt;b&gt;High-Level Responsibility&lt;/b&gt;" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontSize=14;fontColor=#FFFFFF;strokeColor=#0B1B4D;fillColor=#0B1B4D;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="120" width="500" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="h4" value="&lt;b&gt;Primary State / Output&lt;/b&gt;" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontSize=14;fontColor=#FFFFFF;strokeColor=#0B1B4D;fillColor=#0B1B4D;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="120" width="330" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="h5" value="&lt;b&gt;Why This Pattern&lt;/b&gt;" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontSize=14;fontColor=#FFFFFF;strokeColor=#0B1B4D;fillColor=#0B1B4D;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="1430" y="120" width="320" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="r0a" value="Workflow Root / Entry Router" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F3FBF3;strokeColor=#166534;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="168" width="300" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r0b" value="SequentialAgent / custom workflow runner" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F3FBF3;strokeColor=#166534;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="168" width="240" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r0c" value="Event-driven production flow fixes stage order. Interactive analyst entry can invoke the same underlying investigation services." style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F3FBF3;strokeColor=#166534;" vertex="1" parent="1">
+          <mxGeometry x="600" y="168" width="500" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r0d" value="event_type, run_type, settle_date, tlm_refs, session metadata" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F3FBF3;strokeColor=#166534;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="168" width="330" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r0e" value="Do not spend an LLM call deciding a workflow that is already known. Predictability and auditability first." style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F3FBF3;strokeColor=#166534;" vertex="1" parent="1">
+          <mxGeometry x="1430" y="168" width="320" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r1a" value="1 — exception_ingestion_agent" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F3FBF3;strokeColor=#166534;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="272" width="300" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r1b" value="CustomAgent" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F3FBF3;strokeColor=#166534;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="272" width="240" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r1c" value="Fetch TLM exception and prior narration; normalize break attributes; initialize state; establish correlation / audit context." style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F3FBF3;strokeColor=#166534;" vertex="1" parent="1">
+          <mxGeometry x="600" y="272" width="500" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r1d" value="break_records; event context; initial narration" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F3FBF3;strokeColor=#166534;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="272" width="330" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r1e" value="Pure data movement / normalization. Deterministic code is cheaper, faster and testable." style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F3FBF3;strokeColor=#166534;" vertex="1" parent="1">
+          <mxGeometry x="1430" y="272" width="320" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r2a" value="2 — path_identification_agent" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F8F5FF;strokeColor=#6D28D9;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="376" width="300" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r2b" value="LlmAgent + output_schema" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F8F5FF;strokeColor=#6D28D9;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="376" width="240" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r2c" value="Semantically match a break to one of the configured decision-tree paths. Return only schema-valid path_id / match / confidence." style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F8F5FF;strokeColor=#6D28D9;" vertex="1" parent="1">
+          <mxGeometry x="600" y="376" width="500" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r2d" value="path_selection" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F8F5FF;strokeColor=#6D28D9;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="376" width="330" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r2e" value="LLM handles heterogeneous language well, but policy remains configuration. Unmatched breaks cannot be invented into a new path." style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F8F5FF;strokeColor=#6D28D9;" vertex="1" parent="1">
+          <mxGeometry x="1430" y="376" width="320" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r3a" value="3 — rightside_population_agent" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F3FBF3;strokeColor=#166534;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="480" width="300" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r3b" value="ParallelAgent + CustomAgent children" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F3FBF3;strokeColor=#166534;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="480" width="240" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r3c" value="Fan out by source family. Each child calls only its approved MCP read tools and writes an independent evidence slice; one failed source degrades one slice, not the entire run." style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F3FBF3;strokeColor=#166534;" vertex="1" parent="1">
+          <mxGeometry x="600" y="480" width="500" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r3d" value="positions_data.&lt;family&gt;; source_status; latency" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F3FBF3;strokeColor=#166534;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="480" width="330" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r3e" value="Concurrency is useful for independent I/O and helps satisfy the right-side latency budget without multiplying LLM calls." style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F3FBF3;strokeColor=#166534;" vertex="1" parent="1">
+          <mxGeometry x="1430" y="480" width="320" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r4a" value="4 — root_cause_analysis_agent + root_cause_narrative_agent + analysis_validation_agent" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F3FBF3;strokeColor=#166534;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="584" width="300" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r4b" value="CustomAgent + LlmAgent + CustomAgent" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F3FBF3;strokeColor=#166534;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="584" width="240" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r4c" value="Compute root cause deterministically; generate analyst-readable narrative from established facts; validate source completeness, contradictions, rule satisfaction and composite confidence." style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F3FBF3;strokeColor=#166534;" vertex="1" parent="1">
+          <mxGeometry x="600" y="584" width="500" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r4d" value="investigation_report; investigation_narrative; analysis_validation" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F3FBF3;strokeColor=#166534;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="584" width="330" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r4e" value="Separate “establish facts” from “explain facts.” The model must not become the accounting / reconciliation engine." style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F3FBF3;strokeColor=#166534;" vertex="1" parent="1">
+          <mxGeometry x="1430" y="584" width="320" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r5a" value="5 — loop_resolution_review_agent" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#FFF7ED;strokeColor=#C2410C;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="688" width="300" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r5b" value="LoopAgent + LlmAgent + CustomAgent + HumanReviewAgent" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#FFF7ED;strokeColor=#C2410C;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="688" width="240" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r5c" value="Create a resolution proposal and draft narration; validate against policy; route to analyst; edited proposals loop through validation again before approval." style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#FFF7ED;strokeColor=#C2410C;" vertex="1" parent="1">
+          <mxGeometry x="600" y="688" width="500" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r5d" value="resolution_proposal; review_task_id; review decision" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#FFF7ED;strokeColor=#C2410C;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="688" width="330" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r5e" value="A bounded loop models propose → validate → review → revise. Human review remains the control point for non-auto paths." style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#FFF7ED;strokeColor=#C2410C;" vertex="1" parent="1">
+          <mxGeometry x="1430" y="688" width="320" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r6a" value="6 — resolution_execution_agent" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F3FBF3;strokeColor=#166534;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="792" width="300" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r6b" value="SequentialAgent + CustomAgent children" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F3FBF3;strokeColor=#166534;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="792" width="240" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r6c" value="Execute whitelisted target-system action, verify result, write standard TLM narration, auto-match where allowed, tag review/audit records." style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F3FBF3;strokeColor=#166534;" vertex="1" parent="1">
+          <mxGeometry x="600" y="792" width="500" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r6d" value="execution_result; narration_result; match_result; execution_ref" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F3FBF3;strokeColor=#166534;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="792" width="330" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r6e" value="Side effects need strict ordering, idempotency and deterministic success criteria. No free-form autonomous execution." style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F3FBF3;strokeColor=#166534;" vertex="1" parent="1">
+          <mxGeometry x="1430" y="792" width="320" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r7a" value="Complex Break — autonomous_investigation_agent" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F8F5FF;strokeColor=#6D28D9;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="896" width="300" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r7b" value="Bounded LLM agent / agentic loop" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F8F5FF;strokeColor=#6D28D9;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="896" width="240" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r7c" value="Explore novel or ambiguous breaks using approved read tools: form hypotheses, gather evidence, compare alternatives, and return an evidence-backed proposal or escalation." style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F8F5FF;strokeColor=#6D28D9;" vertex="1" parent="1">
+          <mxGeometry x="600" y="896" width="500" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r7d" value="hypotheses; evidence trail; proposed path/action; escalation reason" style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F8F5FF;strokeColor=#6D28D9;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="896" width="330" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="r7e" value="Autonomy adds coverage where a static tree is insufficient, while execution remains behind Stage 5/6 controls." style="fontFamily=Arial;html=1;whiteSpace=wrap;align=left;verticalAlign=top;spacing=8;fontSize=12.5;fontColor=#111827;strokeWidth=1;fillColor=#F8F5FF;strokeColor=#6D28D9;" vertex="1" parent="1">
+          <mxGeometry x="1430" y="896" width="320" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="footer2" value="&lt;b&gt;Design rule:&lt;/b&gt; autonomy is allowed to &lt;i&gt;reason, search, compare and propose&lt;/i&gt;; only deterministic policy-controlled agents may &lt;i&gt;approve eligibility, mutate target systems, auto-match or close a break&lt;/i&gt;." style="fontFamily=Arial;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;rounded=1;arcSize=10;fontSize=14;fontColor=#0B1B4D;strokeColor=#C2410C;fillColor=#FFF7ED;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1010" width="1690" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
